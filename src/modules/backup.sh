@@ -108,6 +108,12 @@ save_configs() {
 
     # Save metadata
     create_metadata_file "${metadata_file}"
+    
+    # Create ShellForge marker file
+    create_marker_file "${backup_dir}"
+    
+    # Create backup statistics (we'll update this at the end)
+    create_backup_stats "${backup_dir}"
 
     printf "${YELLOW}Backing up dotfiles...${NC}\n"
     # Backup individual dotfiles
@@ -138,6 +144,12 @@ save_configs() {
     # Backup SSL directory
     backup_ssl_directory "${home_backup}"
 
+    # Update backup statistics with final counts
+    create_backup_stats "${backup_dir}"
+    
+    # Update global metadata
+    update_global_metadata "${MACHINE_NAME}" "${backup_dir}"
+    
     # Create latest symlink
     local latest_link="${BACKUP_DEST}/${MACHINE_NAME}/latest"
     rm -f "${latest_link}"
@@ -146,6 +158,12 @@ save_configs() {
     printf "\n${GREEN}✓ Backup completed successfully!${NC}\n"
     printf "Location: %s\n" "${backup_dir}"
     printf "Latest link: %s\n" "${latest_link}"
+    
+    # Show backup stats
+    local file_count=$(find "${backup_dir}" -type f ! -name '.shellforge' ! -name '.stats' ! -name 'BACKUP_INFO.txt' 2>/dev/null | wc -l | tr -d ' ')
+    local total_size=$(du -sh "${backup_dir}" 2>/dev/null | cut -f1)
+    printf "Files backed up: ${GREEN}%s${NC}\n" "${file_count}"
+    printf "Total size: ${GREEN}%s${NC}\n" "${total_size}"
     
     # Fun success message
     show_success_message "Your shell configs have been forged!"

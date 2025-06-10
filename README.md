@@ -10,6 +10,8 @@ A powerful shell configuration backup and restore tool that helps you forge your
 - **Flexible restore**: Restore your macOS config to a fresh Debian machine
 - **Secure**: Only backs up .pem files from .ssh, avoiding private keys
 - **Incremental**: Each save creates a timestamped backup with a "latest" symlink
+- **Beautiful TUI**: Enhanced list command with color-coded age indicators and rich information (v1.5.0+)
+- **Smart Filtering**: Only shows genuine ShellForge backups, filtering out other directories
 
 ## Installation
 
@@ -66,7 +68,8 @@ shellforge restore macbook-pro
 
 ### List available backups
 ```bash
-shellforge list
+shellforge list          # Beautiful TUI display of all backups
+shellforge list --verbose  # Show more details including file previews
 ```
 
 ## What Gets Backed Up
@@ -124,6 +127,20 @@ shellforge save macbook-work
 # On your Debian machine
 shellforge restore macbook-work
 ```
+
+## Migrating Existing Backups (v1.5.0+)
+
+If you have backups from versions before 1.5.0, they won't appear in the new enhanced list command. Run the migration script to add the necessary metadata:
+
+```bash
+# Make the script executable
+chmod +x scripts/migrate-backups.sh
+
+# Run the migration
+./scripts/migrate-backups.sh
+```
+
+This will scan your existing backups and add marker files so they appear in the enhanced list display.
 
 ## Visual Enhancements
 

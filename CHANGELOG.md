@@ -5,6 +5,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2025-06-09
+
+### Added
+- Enhanced `list` command with beautiful TUI elements:
+  - Box-drawing characters for visual structure
+  - Color-coded backup age indicators
+  - Machine-specific icons (home icon for current machine)
+  - Detailed backup statistics per machine
+  - Global summary section with totals
+  - Quick command reference
+- ShellForge marker file (.shellforge) to identify valid backups
+- Backup statistics file (.stats) with file counts and sizes
+- Global metadata tracking in BACKUP_DEST/.shellforge-meta
+- Human-readable time formatting ("2 hours ago", "3 days ago")
+- Human-readable size formatting (KB, MB, GB)
+- Enhanced metadata functions:
+  - `create_marker_file()` - Creates backup identification marker
+  - `is_shellforge_backup()` - Validates ShellForge backups
+  - `create_backup_stats()` - Tracks backup statistics
+  - `format_timestamp()` - Converts timestamps to human-readable format
+  - `format_bytes()` - Converts bytes to human-readable sizes
+  - `update_global_metadata()` - Maintains global backup registry
+
+### Changed
+- `list` command now only shows ShellForge backups (not all directories)
+- Backup destination is displayed prominently at the top
+- Each machine shows backup count, total size, and latest backup age
+- Color coding for backup age: green (recent), yellow (old), red (very old)
+- Added file count and size display after successful backup
+- Improved visual hierarchy with sections and separators
+
+### Improved
+- Better filtering to exclude non-ShellForge directories
+- More informative display with contextual information
+- Cleaner and more professional appearance
+- Verbose mode shows preview of backed-up files
+
 ## [1.4.2] - 2024-12-19
 
 ### Fixed

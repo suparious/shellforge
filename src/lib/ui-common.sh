@@ -157,9 +157,12 @@ print_box() {
     printf '─%.0s' $(seq 1 $width)
     printf "┐${NC}\n"
     
-    # Handle multi-line content
+    # Handle multi-line content with escape sequence interpretation
     while IFS= read -r line; do
-        printf "${color}│${NC} %-*s ${color}│${NC}\n" $((width - 1)) "$line"
+        # Use printf %b to interpret escape sequences in the line
+        printf "${color}│${NC} "
+        printf "%-*b" $((width - 1)) "$line"
+        printf " ${color}│${NC}\n"
     done <<< "$content"
     
     printf "${color}└"
