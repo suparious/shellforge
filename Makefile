@@ -38,8 +38,8 @@ install: build
 # Run tests
 test: build
 	@echo "Running tests..."
-	@if [ -f test.sh ]; then \
-		bash test.sh; \
+	@if [ -f tests/test.sh ]; then \
+		bash tests/test.sh; \
 	else \
 		echo "No tests found"; \
 	fi

@@ -14,13 +14,14 @@ NC='\033[0m'
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SHELLFORGE="${SCRIPT_DIR}/shellforge"
+PROJECT_ROOT="$(dirname "${SCRIPT_DIR}")"
+SHELLFORGE="${PROJECT_ROOT}/shellforge"
 
 # Build if necessary
 if [[ ! -f "${SHELLFORGE}" ]]; then
     echo -e "${YELLOW}Building ShellForge...${NC}"
-    if [[ -f "${SCRIPT_DIR}/build/build.sh" ]]; then
-        "${SCRIPT_DIR}/build/build.sh"
+    if [[ -f "${PROJECT_ROOT}/build/build.sh" ]]; then
+        "${PROJECT_ROOT}/build/build.sh"
         echo -e "  ${GREEN}✓${NC} Build complete"
     else
         echo -e "  ${RED}✗${NC} Build script not found"

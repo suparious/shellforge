@@ -15,7 +15,6 @@ A powerful shell configuration backup and restore tool that helps you forge your
 
 1. Build and install ShellForge:
    ```bash
-   cd $HOME/repos/shellforge
    make install  # Builds and installs to ~/bin
    ```
    

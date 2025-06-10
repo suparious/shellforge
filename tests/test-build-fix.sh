@@ -3,6 +3,9 @@
 
 echo "Testing build script..."
 
+# Get to project root
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
 # Test 1: No arguments (should default to release)
 echo -e "\n1. Testing default build (no args):"
 bash build/build.sh > /dev/null 2>&1 && echo "✓ Success" || echo "✗ Failed"

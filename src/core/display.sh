@@ -26,8 +26,25 @@ get_disk_space() {
     done
     
     if command -v df &> /dev/null; then
+        # Temporarily disable pipefail to handle df errors gracefully
+        local old_pipefail="off"
+        if [[ -o pipefail ]]; then
+            old_pipefail="on"
+            set +o pipefail
+        fi
+        
         local available=$(df -h "$parent_dir" 2>/dev/null | tail -1 | awk '{print $4}')
-        echo "$available"
+        
+        # Restore pipefail setting
+        if [[ "$old_pipefail" == "on" ]]; then
+            set -o pipefail
+        fi
+        
+        if [[ -n "$available" ]]; then
+            echo "$available"
+        else
+            echo "unknown"
+        fi
     else
         echo "unknown"
     fi
@@ -247,16 +264,25 @@ usage() {
     printf "\n${GREEN}v${VERSION}${NC} - Shell configuration backup and restore tool\n"
     
     # Add timestamp and system info
-    local current_time=$(date "+%Y-%m-%d %H:%M:%S")
-    local shell_type=$(basename "$SHELL")
+    local current_time=$(date "+%Y-%m-%d %H:%M:%S" 2>/dev/null || echo "unknown")
+    local shell_type="bash"  # Default to bash
+    if [[ -n "${SHELL:-}" ]]; then
+        shell_type=$(basename "$SHELL" 2>/dev/null || echo "$SHELL")
+    fi
     printf "${BLUE}Generated: ${NC}%s ${BLUE}|${NC} ${BLUE}Shell: ${NC}%s ${BLUE}|${NC} ${BLUE}User: ${NC}%s\n\n" \
-        "$current_time" "$shell_type" "$USER"
+        "$current_time" "$shell_type" "${USER:-unknown}"
+    
+    # Get script name safely
+    local script_name="shellforge"
+    if [[ -n "${0:-}" ]]; then
+        script_name=$(basename "$0" 2>/dev/null || echo "shellforge")
+    fi
     
     printf "${YELLOW}Usage:${NC}\n"
-    printf "    %s save [machine_name] [--verbose]     - Save current shell configurations\n" "$(basename "$0")"
-    printf "    %s restore [machine_name]              - Restore shell configurations\n" "$(basename "$0")"
-    printf "    %s list                                - List available backups\n" "$(basename "$0")"
-    printf "    %s help                                - Show this help message\n\n" "$(basename "$0")"
+    printf "    %s save [machine_name] [--verbose]     - Save current shell configurations\n" "$script_name"
+    printf "    %s restore [machine_name]              - Restore shell configurations\n" "$script_name"
+    printf "    %s list                                - List available backups\n" "$script_name"
+    printf "    %s help                                - Show this help message\n\n" "$script_name"
 
     printf "${YELLOW}Options:${NC}\n"
     printf "    machine_name    Override the default machine name (default: %s)\n" "${MACHINE_NAME}"
@@ -267,11 +293,11 @@ usage() {
     printf "\n"
 
     printf "${YELLOW}Examples:${NC}\n"
-    printf "    %s save                    # Save using hostname\n" "$(basename "$0")"
-    printf "    %s save macbook-work       # Save with custom name\n" "$(basename "$0")"
-    printf "    %s save --verbose          # Save with detailed output\n" "$(basename "$0")"
-    printf "    %s restore                 # Restore from hostname backup\n" "$(basename "$0")"
-    printf "    %s restore macbook-work    # Restore from specific backup\n\n" "$(basename "$0")"
+    printf "    %s save                    # Save using hostname\n" "$script_name"
+    printf "    %s save macbook-work       # Save with custom name\n" "$script_name"
+    printf "    %s save --verbose          # Save with detailed output\n" "$script_name"
+    printf "    %s restore                 # Restore from hostname backup\n" "$script_name"
+    printf "    %s restore macbook-work    # Restore from specific backup\n\n" "$script_name"
 
     printf "${YELLOW}Smart Config Filtering:${NC}\n"
     printf "When SHELLFORGE_SMART_CONFIG is enabled (default), large binary/cache directories\n"
