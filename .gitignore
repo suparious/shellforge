@@ -1,0 +1,29 @@
+# ShellForge .gitignore
+
+# Built artifacts
+dist/
+shellforge
+
+# Test backups
+test-backups/
+test-backup/
+backup-test/
+
+# Temporary files
+*.tmp
+*.bak
+*~
+.DS_Store
+
+# Local configuration
+.env
+config.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
