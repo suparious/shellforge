@@ -1,19 +1,12 @@
 #!/usr/bin/env bash
 # ShellForge Display Functions
-# Functions for displaying banners, messages, and UI elements
+# ShellForge-specific display functions that build on ui-common.sh
 
-# Helper function to truncate paths for display
-truncate_path() {
-    local path="$1"
-    local max_len=40
-    
-    if [[ ${#path} -le $max_len ]]; then
-        echo "$path"
-    else
-        # Show first 15 and last 20 characters with ... in middle
-        echo "${path:0:15}...${path: -20}"
-    fi
-}
+# Note: This file expects ui-common.sh to be loaded first, which provides:
+# - Color definitions (RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, NC, etc.)
+# - Status icons (STATUS_ICONS array)
+# - Basic display functions (print_status, print_section, etc.)
+# - Banner display (display_banner)
 
 # Get disk space info for a directory
 get_disk_space() {
@@ -243,21 +236,6 @@ print_env_status() {
     fi
 }
 
-# Display banner
-display_banner() {
-    if [[ "${HAS_FIGLET}" == "true" ]] && [[ "${HAS_LOLCAT}" == "true" ]]; then
-        figlet -f slant "ShellForge" | lolcat -f
-    elif [[ "${HAS_FIGLET}" == "true" ]]; then
-        printf "${BLUE}"
-        figlet -f slant "ShellForge"
-        printf "${NC}"
-    else
-        printf "${BLUE}╔═══════════════════════════════╗${NC}\n"
-        printf "${BLUE}║        ShellForge 🔥          ║${NC}\n"
-        printf "${BLUE}╚═══════════════════════════════╝${NC}\n"
-    fi
-}
-
 # Print usage information
 usage() {
     display_banner
@@ -324,18 +302,13 @@ usage() {
     printf "${BLUE}└───────────────────────────────────────────────────────┘${NC}\n"
 }
 
-# Show fun success message
+# Show fun success message (ShellForge specific)
 show_success_message() {
     local message="$1"
-    
-    if [[ "${HAS_COWSAY}" == "true" ]] && [[ "${HAS_LOLCAT}" == "true" ]]; then
-        echo "$message" | cowsay -f tux | lolcat -f
-    elif [[ "${HAS_COWSAY}" == "true" ]]; then
-        echo "$message" | cowsay -f tux
-    fi
+    show_success "$message" true
 }
 
-# Show restore success message
+# Show restore success message (ShellForge specific)
 show_restore_success() {
     local message="$1"
     
@@ -343,5 +316,7 @@ show_restore_success() {
         echo "$message" | cowsay -f dragon | lolcat -f
     elif [[ "${HAS_COWSAY}" == "true" ]]; then
         echo "$message" | cowsay -f dragon
+    else
+        show_success "$message" false
     fi
 }

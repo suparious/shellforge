@@ -5,6 +5,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2024-12-19
+
+### Fixed
+- Fixed "local: can only be used in a function" error in update.sh
+- Removed improper use of `local` keyword outside of functions
+
+## [1.4.0] - 2024-12-19
+
+### Added
+- Created `src/lib/ui-common.sh` - a shared UI library for consistent TUI elements
+- Beautiful new UI elements including:
+  - Status icons and colored output
+  - Progress indicators and animations
+  - Box drawing for sections and content
+  - Progress bars and step counters
+  - Interactive menus and separators
+
+### Changed
+- Completely redesigned `setup.sh` with beautiful TUI elements:
+  - Animated build progress
+  - System information display
+  - Step-by-step progress tracking
+  - Visual feedback for all operations
+  - Fun closing animations
+- Completely redesigned `update.sh` with enhanced visuals:
+  - Version comparison display
+  - Git repository status
+  - Build statistics and timing
+  - Changelog preview
+  - Command reference guide
+- Refactored display code to use shared UI library
+- Build process now includes ui-common.sh for consistent styling
+
+### Improved
+- Consistent visual design across all ShellForge tools
+- Better user feedback during installation and updates
+- More engaging and professional appearance
+- Centralized UI management for easier maintenance
+
 ## [1.3.6] - 2024-12-19
 
 ### Fixed
