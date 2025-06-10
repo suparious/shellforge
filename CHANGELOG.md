@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.5] - 2024-12-19
+
+### Changed
+- Updated test.sh to show debug output when help command fails
+- Changed test summary to use project-local test-backups directory instead of /tmp
+- Help command test now captures and displays exit code for better debugging
+
+### Added  
+- Comprehensive test-help.sh script for debugging help command issues
+- Better error handling in test suite to show what's actually failing
+
 ## [1.3.4] - 2024-12-19
 
 ### Fixed

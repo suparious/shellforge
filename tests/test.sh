@@ -70,10 +70,18 @@ done
 
 # Test 5: Test help command
 echo -e "\n${YELLOW}Test 5: Testing help command...${NC}"
-if "${SHELLFORGE}" help &> /dev/null; then
+set +e  # Temporarily disable exit on error
+"${SHELLFORGE}" help &> /dev/null
+help_exit_code=$?
+set -e  # Re-enable exit on error
+
+if [[ $help_exit_code -eq 0 ]]; then
     echo -e "  ${GREEN}✓${NC} Help command works"
 else
-    echo -e "  ${RED}✗${NC} Help command failed"
+    echo -e "  ${RED}✗${NC} Help command failed (exit code: $help_exit_code)"
+    # Show what went wrong
+    echo -e "  ${YELLOW}Debug output:${NC}"
+    "${SHELLFORGE}" help 2>&1 | head -10 | sed 's/^/    /'
 fi
 
 # Test 6: Test version command
@@ -111,7 +119,7 @@ echo -e "  Total found: ${dir_count} directories"
 echo -e "\n${BLUE}=== Test Summary ===${NC}"
 echo -e "ShellForge appears to be properly configured."
 echo -e "\nTo perform a real backup test:"
-echo -e "  1. Set BACKUP_DEST: ${GREEN}export BACKUP_DEST=/tmp/shellforge-test${NC}"
+echo -e "  1. Set BACKUP_DEST: ${GREEN}export BACKUP_DEST=${PROJECT_ROOT}/test-backups${NC}"
 echo -e "  2. Run save: ${GREEN}${SHELLFORGE} save test-machine${NC}"
 echo -e "  3. List backups: ${GREEN}${SHELLFORGE} list${NC}"
-echo -e "\nThis will create a test backup in /tmp without affecting your real backup location."
+echo -e "\nThis will create a test backup in the project directory (already in .gitignore)."
