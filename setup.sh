@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Setup script for ShellForge
 # Enhanced with beautiful TUI elements
 

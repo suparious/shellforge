@@ -3,6 +3,13 @@
 # Shared UI elements for consistent look and feel across all scripts
 # This file can be sourced by setup.sh, update.sh, and other standalone scripts
 
+# Ensure we have bash 4+ for associative arrays
+if [[ "${BASH_VERSION%%.*}" -lt 4 ]]; then
+    echo "Error: ShellForge requires Bash 4.0 or later" >&2
+    echo "Current version: ${BASH_VERSION}" >&2
+    exit 1
+fi
+
 # Color definitions
 setup_colors() {
     if [[ -t 1 ]]; then
@@ -43,24 +50,26 @@ check_display_tools() {
 setup_colors
 check_display_tools
 
-# Status icons
-declare -A STATUS_ICONS=(
-    [success]="✓"
-    [error]="✗"
-    [warning]="⚠"
-    [info]="ℹ"
-    [pending]="○"
-    [working]="◐"
-    [arrow]="→"
-    [star]="★"
-    [fire]="🔥"
-    [package]="📦"
-    [rocket]="🚀"
-    [shield]="🛡️"
-    [lightning]="⚡"
-    [target]="🎯"
-    [sparkles]="✨"
-)
+# Status icons - using a more compatible approach
+# Initialize as empty associative array first
+declare -A STATUS_ICONS
+
+# Then set each key individually to avoid unbound variable issues
+STATUS_ICONS[success]="✓"
+STATUS_ICONS[error]="✗"
+STATUS_ICONS[warning]="⚠"
+STATUS_ICONS[info]="ℹ"
+STATUS_ICONS[pending]="○"
+STATUS_ICONS[working]="◐"
+STATUS_ICONS[arrow]="→"
+STATUS_ICONS[star]="★"
+STATUS_ICONS[fire]="🔥"
+STATUS_ICONS[package]="📦"
+STATUS_ICONS[rocket]="🚀"
+STATUS_ICONS[shield]="🛡️"
+STATUS_ICONS[lightning]="⚡"
+STATUS_ICONS[target]="🎯"
+STATUS_ICONS[sparkles]="✨"
 
 # Display the ShellForge banner
 display_banner() {
