@@ -79,9 +79,11 @@ if [[ $help_exit_code -eq 0 ]]; then
     echo -e "  ${GREEN}✓${NC} Help command works"
 else
     echo -e "  ${RED}✗${NC} Help command failed (exit code: $help_exit_code)"
-    # Show what went wrong
+    # Show what went wrong (but avoid SIGPIPE by disabling pipefail temporarily)
     echo -e "  ${YELLOW}Debug output:${NC}"
+    set +o pipefail
     "${SHELLFORGE}" help 2>&1 | head -10 | sed 's/^/    /'
+    set -o pipefail
 fi
 
 # Test 6: Test version command

@@ -9,6 +9,9 @@ test-backups/
 test-backup/
 backup-test/
 
+# Test archives
+tests/archive/
+
 # Temporary files
 *.tmp
 *.bak

@@ -10,8 +10,6 @@ This directory contains test scripts and demos for ShellForge functionality.
 - `test-color-fix.sh` - Tests for color output functionality
 - `test-dynamic-help.sh` - Tests for dynamic help system
 - `test-smart-config.sh` - Tests for smart config filtering features
-- `test-help-fix.sh` - Verifies help command works in various environments
-- `test-help-debug.sh` - Debug tool for diagnosing help command issues
 
 ### Demo Scripts
 - `demo-env-display.sh` - Demonstrates environment detection and display
