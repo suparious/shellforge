@@ -10,10 +10,16 @@ This directory contains test scripts and demos for ShellForge functionality.
 - `test-color-fix.sh` - Tests for color output functionality
 - `test-dynamic-help.sh` - Tests for dynamic help system
 - `test-smart-config.sh` - Tests for smart config filtering features
+- `test-enhanced-list.sh` - Tests for enhanced list command
+- `test-list-fixes.sh` - Tests for list command bug fixes
+- `test-macos-compat.sh` - Tests for macOS compatibility
+- `test-sixel-support.sh` - Tests for Sixel graphics support (wrapper)
+- `test-image-rendering.sh` - Comprehensive image rendering tests
 
 ### Demo Scripts
 - `demo-env-display.sh` - Demonstrates environment detection and display
 - `demo-help.sh` - Demonstrates the help system output
+- `demo-image-rendering.sh` - Interactive demo of image rendering features
 
 ## Running Tests
 

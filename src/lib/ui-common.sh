@@ -74,7 +74,35 @@ STATUS_ICONS[sparkles]="✨"
 # Display the ShellForge banner
 display_banner() {
     local subtitle="${1:-}"
+    local show_image="${2:-true}"
     
+    # Try to show image logo if available and not disabled
+    if [[ "$show_image" == "true" ]] && [[ "${NO_GRAPHICS:-false}" != "true" ]]; then
+        # Check if image renderer is available (function may not exist yet)
+        if type -t can_render_images &>/dev/null && can_render_images; then
+            # Check for a ShellForge logo in common locations
+            local logo_paths=(
+                "${SHELLFORGE_LOGO_PATH:-}"
+                "${PROJECT_ROOT:-}/assets/logo.png"
+                "${PROJECT_ROOT:-}/assets/logo.svg"
+                "~/.config/shellforge/logo.png"
+                "~/.config/shellforge/logo.svg"
+            )
+            
+            for logo_path in "${logo_paths[@]}"; do
+                if [[ -n "$logo_path" ]] && [[ -f "$logo_path" ]]; then
+                    render_image "$logo_path" 40 8 ""
+                    if [[ -n "$subtitle" ]]; then
+                        printf "${YELLOW}%s${NC}\n" "$subtitle"
+                    fi
+                    echo ""
+                    return 0
+                fi
+            done
+        fi
+    fi
+    
+    # Fallback to text banner
     if [[ "${HAS_FIGLET}" == "true" ]] && [[ "${HAS_LOLCAT}" == "true" ]]; then
         figlet -f slant "ShellForge" | lolcat -f
         if [[ -n "$subtitle" ]]; then

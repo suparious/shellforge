@@ -84,6 +84,7 @@ print_env_status() {
         "SHELLFORGE_MAX_DIR_SIZE_MB|Max dir size (MB)|50"
         "SHELLFORGE_CONFIG_INCLUDE|Force include|none"
         "SHELLFORGE_VERBOSE|Verbose output|false"
+        "SHELLFORGE_NO_GRAPHICS|Disable graphics|false"
     )
     
     for var_info in "${env_vars[@]}"; do
@@ -264,7 +265,8 @@ usage() {
 
     printf "${YELLOW}Options:${NC}\n"
     printf "    machine_name    Override the default machine name (default: %s)\n" "${MACHINE_NAME}"
-    printf "    --verbose       Show detailed information about what's being backed up/skipped\n\n"
+    printf "    --verbose       Show detailed information about what's being backed up/skipped\n"
+    printf "    --no-graphics   Disable image rendering (Sixel/ASCII art)\n\n"
 
     printf "${YELLOW}Environment Variables:${NC}\n"
     print_env_status

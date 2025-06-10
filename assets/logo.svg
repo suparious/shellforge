@@ -1,0 +1,51 @@
+<svg width="320" height="160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Fire gradient -->
+    <linearGradient id="fireGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#feca57;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffdd59;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Text gradient -->
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#74b9ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a29bfe;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="320" height="160" rx="12" fill="url(#bgGrad)"/>
+  
+  <!-- Fire icon -->
+  <g transform="translate(40, 50)">
+    <!-- Flame shape -->
+    <path d="M20,60 Q10,40 15,25 Q18,15 20,5 Q22,15 25,25 Q30,40 20,60" 
+          fill="url(#fireGrad)" opacity="0.9"/>
+    <path d="M20,55 Q15,45 17,35 Q19,28 20,20 Q21,28 23,35 Q25,45 20,55" 
+          fill="#ffdd59" opacity="0.8"/>
+    <!-- Ember dots -->
+    <circle cx="15" cy="25" r="2" fill="#feca57" opacity="0.8"/>
+    <circle cx="25" cy="30" r="1.5" fill="#ff6b6b" opacity="0.8"/>
+    <circle cx="18" cy="35" r="1" fill="#ffdd59" opacity="0.8"/>
+  </g>
+  
+  <!-- Main text -->
+  <text x="80" y="85" font-family="Arial, sans-serif" font-size="36" font-weight="bold" 
+        fill="url(#textGrad)">ShellForge</text>
+  
+  <!-- Subtitle -->
+  <text x="80" y="110" font-family="Arial, sans-serif" font-size="14" 
+        fill="#dfe6e9" opacity="0.8">Configuration Backup Tool</text>
+  
+  <!-- Decorative elements -->
+  <rect x="80" y="120" width="30" height="2" fill="#74b9ff" opacity="0.5"/>
+  <rect x="115" y="120" width="15" height="2" fill="#a29bfe" opacity="0.5"/>
+  <rect x="135" y="120" width="8" height="2" fill="#ff6b6b" opacity="0.5"/>
+</svg>

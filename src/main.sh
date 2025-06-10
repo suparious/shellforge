@@ -8,11 +8,15 @@ main() {
     local cmd="${1:-}"
     shift || true
     
-    # Check for verbose flag
+    # Check for flags
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --verbose|-v)
                 VERBOSE="true"
+                shift
+                ;;
+            --no-graphics)
+                NO_GRAPHICS="true"
                 shift
                 ;;
             *)
@@ -58,5 +62,7 @@ main() {
     esac
 }
 
-# Run main function
-main "$@"
+# Run main function only if not sourced
+if [[ "${SHELLFORGE_SOURCED:-false}" != "true" ]]; then
+    main "$@"
+fi

@@ -114,6 +114,7 @@ build() {
         "core/variables.sh"
         "core/utils.sh"
         "lib/ui-common.sh"
+        "lib/image-renderer.sh"
         "core/display.sh"
         "lib/file-operations.sh"
         "lib/metadata.sh"

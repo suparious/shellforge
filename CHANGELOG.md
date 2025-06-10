@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **Image Rendering Support**: Optional Sixel and ASCII art rendering capabilities
+  - Sixel graphics support for compatible terminals (xterm, mlterm, mintty, etc.)
+  - Automatic fallback to ASCII art using `chafa` or `jp2a`
+  - SVG to PNG conversion support via `rsvg-convert`
+  - **Improved Sixel detection**:
+    - Multi-stage detection (known terminals, DA1 query, render test)
+    - Works with xterm (when started with `-ti vt340`)
+    - Handles false positives from terminals that don't support Sixel
+    - Environment variable checking for accurate terminal identification
+  - `--no-graphics` command-line flag to disable image rendering
+  - `SHELLFORGE_NO_GRAPHICS` environment variable support
+  - Custom logo support via `SHELLFORGE_LOGO_PATH` or standard locations
+- New library module: `src/lib/image-renderer.sh`
+- Image rendering integrated into banner display
+- Test scripts for image rendering validation
+- Demo script showcasing rendering capabilities
+- Default ShellForge logo in SVG format
+- Documentation for image rendering features
+
+### Changed
+- `display_banner()` now supports optional image display
+- Environment variable display includes `SHELLFORGE_NO_GRAPHICS`
+- Build system updated to include image-renderer.sh module
+- Main script handles `--no-graphics` flag in argument parsing
+
 ## [1.5.0] - 2025-06-09
 
 ### Added
